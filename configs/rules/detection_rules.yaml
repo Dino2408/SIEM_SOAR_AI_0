@@ -1,0 +1,47 @@
+title: Brute Force SSH Detection
+id: 1
+status: experimental
+description: Detects multiple failed SSH logins
+logsource:
+    category: auth
+    product: linux
+detection:
+    selection:
+        event_type: syslog
+        message|contains: 'Failed password for'
+    condition: selection
+    timeframe: 5m
+    condition_threshold: 10
+level: high
+
+---
+title: Port Scan Activity
+id: 2
+status: experimental
+description: Detects potential port scanning
+logsource:
+    category: network
+detection:
+    selection:
+        event_type: suricata
+        alert.signature|contains: 'ET SCAN'
+    condition: selection
+level: medium
+
+---
+title: SQL Injection Attempt
+id: 3
+level: high
+detection:
+    selection:
+        event_type: web
+        url|contains: 'UNION SELECT'
+
+---
+title: Possible Ransomware Behavior
+id: 4
+level: critical
+detection:
+    selection:
+        event_type: process_create
+        command_line|contains: 'vssadmin delete shadows'

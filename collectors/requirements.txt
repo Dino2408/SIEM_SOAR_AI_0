@@ -1,0 +1,14 @@
+python-json-logger
+redis
+watchdog
+pyinotify; sys_platform == 'linux'
+asyncio
+aiofiles
+httpx
+pydantic
+structlog
+syslog-rfc5424-parser
+python-dotenv
+kafka-python
+boto3
+azure-mgmt-monitor

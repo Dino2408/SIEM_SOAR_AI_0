@@ -1,0 +1,26 @@
+name: Brute Force Response
+description: Playbook for handling SSH brute force alerts
+steps:
+  - action: notify_soc
+    args:
+      channel: slack
+      message: "Brute force alert triggered. Initiating playbook."
+  - action: block_ip
+    args:
+      ip: "{{ alert.source_ip }}"
+  - action: check_account_lockout
+    args:
+      username: "{{ alert.username }}"
+  - action: force_password_reset
+    args:
+      username: "{{ alert.username }}"
+  - action: collect_forensics
+    args:
+      host: "{{ alert.target_host }}"
+  - action: create_ticket
+    args:
+      title: "Brute Force Incident - {{ alert.source_ip }}"
+      description: "Automated response triggered for brute force."
+  - action: update_firewall_rules
+    args:
+      rule: "drop {{ alert.source_ip }}"

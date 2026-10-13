@@ -1,0 +1,22 @@
+fastapi
+uvicorn[standard]
+google-genai>=2.25.0
+pydantic
+pydantic-settings
+redis
+httpx>=0.28.1,<1.0.0
+numpy
+scikit-learn
+joblib
+python-dotenv
+structlog
+celery[redis]
+elasticsearch
+prometheus-client
+asyncpg
+sqlalchemy[asyncio]
+# CPU-only torch (avoid 3GB+ GPU downloads)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+sentence-transformers
+
